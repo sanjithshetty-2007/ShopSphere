@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import getproducts from "./services/productService";
 import Header from "./components/layout/Header";
-import { main } from "motion/react-client";
 import ProductGrid from "./components/products/ProductGrid";
 
 const App = () => {
   const [product_list, setproduct_list] = useState([]);
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState("");
   useEffect(() => {
     const fetchproducts = async () => {
       try {
+        setloading(true);
         const data = await getproducts();
         setproduct_list(data.products);
-        console.log(data);
       } catch (error) {
+        seterror(error.message);
         console.error(error);
+      } finally {
+        setloading(false);
       }
     };
     fetchproducts();
