@@ -7,6 +7,7 @@ const App = () => {
   const [product_list, setproduct_list] = useState([]);
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
+  const [searchTerm, setsearchTerm] = useState("");
   useEffect(() => {
     const fetchproducts = async () => {
       try {
@@ -26,10 +27,11 @@ const App = () => {
     <>
       <div className="bg-purple-900 ">
         <div className="bg-black p-2">
-          <Header />
+          <Header setsearchTerm={setsearchTerm} />
+          {console.log(searchTerm)}
         </div>
         <div>
-          <ProductGrid product_list={product_list} />
+          <ProductGrid product_list={product_list} searchTerm={searchTerm} />
         </div>
       </div>
     </>

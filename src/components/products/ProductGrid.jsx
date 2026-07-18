@@ -1,10 +1,17 @@
-import React from "react";
 import ProductCard from "./ProductCard";
 
-const ProductGrid = ({ product_list }) => {
+const Errorcard = () => {
+  return <div className="justify-center">Product not found</div>;
+};
+
+const ProductGrid = ({ product_list, searchTerm }) => {
+  const filtered_list = product_list.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-6 py-8 ">
-      {product_list.map((product) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-6 py-8">
+      {filtered_list.map((product) => (
         <ProductCard
           key={product.id}
           title={product.title}
@@ -15,6 +22,7 @@ const ProductGrid = ({ product_list }) => {
           thumbnail={product.thumbnail}
         />
       ))}
+      {filtered_list.length === 0 && <Errorcard />}
     </div>
   );
 };

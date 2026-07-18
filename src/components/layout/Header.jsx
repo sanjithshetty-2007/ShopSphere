@@ -17,7 +17,7 @@ const NAV_ITEMS = [
   { name: "Cart", link: "#" },
 ];
 
-const Header = () => {
+const Header = ({ setsearchTerm }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -26,7 +26,13 @@ const Header = () => {
         <NavbarLogo />
         <NavItems items={NAV_ITEMS} />
         <NavbarButton href="#" variant="primary">
-          Sign In
+          <input
+            type=" text"
+            placeholder="search for the item"
+            onChange={(e) => {
+              setsearchTerm(e.target.value);
+            }}
+          />
         </NavbarButton>
       </NavBody>
 
