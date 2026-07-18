@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import getproducts from "./services/productService";
 import Header from "./components/layout/Header";
 import ProductGrid from "./components/products/ProductGrid";
+import CategoryFilter from "./components/ui/CategoryFilter";
 
 const App = () => {
   const [product_list, setproduct_list] = useState([]);
@@ -28,7 +29,9 @@ const App = () => {
       <div className="bg-purple-900 ">
         <div className="bg-black p-2">
           <Header setsearchTerm={setsearchTerm} />
-          {console.log(searchTerm)}
+        </div>
+        <div>
+          <CategoryFilter />
         </div>
         <div>
           <ProductGrid product_list={product_list} searchTerm={searchTerm} />
