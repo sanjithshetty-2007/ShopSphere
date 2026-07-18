@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import getproducts from "./services/productService";
+import { Navbar } from "./components/ui/Navbar";
 
 const App = () => {
   useEffect(() => {
@@ -13,7 +14,11 @@ const App = () => {
     };
     fetchproducts();
   }, []);
-  return <div>APP</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };
 
 export default App;
