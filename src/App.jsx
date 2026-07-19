@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import getproducts from "./services/productService";
 import Header from "./components/layout/Header";
 import ProductGrid from "./components/products/ProductGrid";
@@ -9,6 +9,8 @@ const App = () => {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
   const [searchTerm, setsearchTerm] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
   useEffect(() => {
     const fetchproducts = async () => {
       try {
@@ -24,20 +26,37 @@ const App = () => {
     };
     fetchproducts();
   }, []);
+
+  const handleToggleCategory = (category) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category],
+    );
+  };
+
   return (
-    <>
-      <div className="bg-purple-900 ">
-        <div className="bg-black p-2">
-          <Header setsearchTerm={setsearchTerm} />
-        </div>
-        <div>
-          <CategoryFilter />
-        </div>
-        <div>
-          <ProductGrid product_list={product_list} searchTerm={searchTerm} />
-        </div>
+    <div className="bg-purple-900">
+      <div className="bg-black p-2">
+        <Header setsearchTerm={setsearchTerm} />
       </div>
-    </>
+
+      <div>
+        <CategoryFilter
+          product_list={product_list}
+          selectedCategories={selectedCategories}
+          onToggleCategory={handleToggleCategory}
+        />
+      </div>
+
+      <div>
+        <ProductGrid
+          product_list={product_list}
+          searchTerm={searchTerm}
+          selectedCategories={selectedCategories}
+        />
+      </div>
+    </div>
   );
 };
 
